@@ -1,0 +1,98 @@
+let s:curdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let &rtp.=','.s:curdir
+
+" Set leader key
+let mapleader = ' '
+map <LEADER>rc :e ~/.config/nvim/<CR>
+map R :source $MYVIMRC<CR>
+
+" Load configs
+for fpath in split(globpath(expand(s:curdir.'/config'), '*.vim'), '\n')
+  exe 'source' fpath
+endfor
+
+" Options setup ============================================================={{{
+
+colorscheme one
+set mouse=a
+set nocompatible
+set hidden
+set encoding=UTF-8
+set termguicolors
+" Highlight curcur
+set cursorcolumn
+set cursorline
+" Max pattern match memory
+set maxmempattern=5000
+set lazyredraw
+set autoread
+set hlsearch
+set showmode
+" Code fold
+set foldmethod=indent
+set foldlevel=99
+" Default tab width = 4 space
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+" backspace
+set backspace=indent,eol,start " backspace over everything in insert mode
+" time in milliseconds to wait for a mapped sequence to complete
+set timeoutlen=700
+
+" }}}
+
+
+
+" coc.nvim setup ============================================================{{{
+
+" color for cursor holding highlight
+hi default CocHighlightText guibg=#8a8a8a guifg=#211F1C
+hi default CocHighlightText ctermbg=#8a8a8a ctermfg=#211F1C
+
+" color for coc-diagnostic
+hi link CocErrorSign Error
+hi link CocWarningSign ALEWarningSign
+
+" }}}
+
+
+" lightline setup ==========================================================={{{
+
+" wombat tabline colorscheme customization
+let s:palette = g:lightline#colorscheme#wombat#palette
+let s:palette.tabline.tabsel = [ [ '#242424', '#8ac6f2', 235, 117, 'bold' ] ]
+unlet s:palette
+
+" }}}
+
+
+" fcitx setup ============================================================{{{
+let g:input_toggle = 1
+function! Fcitx2en()
+   let s:input_status = system("fcitx-remote")
+   if s:input_status == 2
+      let g:input_toggle = 1
+      let l:a = system("fcitx-remote -c")
+   endif
+endfunction
+
+function! Fcitx2zh()
+   let s:input_status = system("fcitx-remote")
+   if s:input_status != 2 && g:input_toggle == 1
+      let l:a = system("fcitx-remote -o")
+      let g:input_toggle = 0
+   endif
+endfunction
+
+set ttimeoutlen=150
+autocmd InsertLeave * call Fcitx2en()
+autocmd InsertEnter * call Fcitx2zh()
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+"
+" }}}

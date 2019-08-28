@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/dabao/.config/nvim'
+let g:netrw_dirhist_2='/home/dabao/.config/nvim/config'
+let g:netrw_dirhist_3='/home/dabao/.config/nvim'
+let g:netrw_dirhist_4='/home/dabao/.config/nvim/config'
+let g:netrw_dirhist_5='/home/dabao/.config/nvim'
+let g:netrw_dirhist_6='/home/dabao/.config/nvim/config'
+let g:netrw_dirhist_7='/home/dabao/.config/nvim'
