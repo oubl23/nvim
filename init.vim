@@ -16,7 +16,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['/usr/bin/pyls'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'vue': ['/usr/local/bin/vls'],
     \ 'go': ['/home/dabao/go/bin/gopls'],
     \ }
 
@@ -31,9 +32,9 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 "set cmdheight=2
 "let g:echodoc#enable_at_startup = 1
 "let g:echodoc#type = 'signature'
-"set signcolumn=yes
+set signcolumn=yes
 
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
@@ -98,10 +99,15 @@ set background=dark
 
 
 Plug 'fatih/vim-go'
+Plug 'posva/vim-vue'
+"let g:vue_pre_processors = ['pug', 'scss']
+"let g:vue_pre_processors = []
+let g:vue_pre_processors = 'detect_on_enter'
+
 call plug#end()
 
 let mapleader = ' '
-map <LEADER>rc :e ~/.config/nvim/<CR>
+map <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 map R :source $MYVIMRC<CR>
 colorscheme one
 set mouse=a
@@ -118,3 +124,11 @@ set lazyredraw
 set autoread
 set hlsearch
 set showmode
+
+
+if exists('+termguicolors')
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	set termguicolors
+endif
+
