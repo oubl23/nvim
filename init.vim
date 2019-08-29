@@ -1,39 +1,43 @@
 call plug#begin('~/.vim/plugged')
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+" LanguageClient ============================================================={{{
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+let g:lsp_diagnostics_enabled = 0
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
 endif
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_auto_popup = 0
 
-let g:deoplete#enable_at_startup = 1
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-set hidden
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'vue': ['/usr/local/bin/vls'],
-    \ 'go': ['/home/dabao/go/bin/gopls'],
-    \ }
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-"Plug 'Shougo/echodoc.vim'
 
-"set cmdheight=2
-"let g:echodoc#enable_at_startup = 1
-"let g:echodoc#type = 'signature'
-set signcolumn=yes
+Plug 'dense-analysis/ale'
+" }}}
 
+" fzf nerdtree ============================================================={{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 autocmd! FileType fzf
@@ -85,6 +89,10 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+" }}}
+
+
+" color ============================================================{{{
 Plug 'flazz/vim-colorschemes'
 Plug 'liaoishere/vim-one'        " Fix comment color of 'rakr/vim-one'
 let g:one_allow_italics = 1
@@ -97,7 +105,8 @@ let g:rehash256 = 1
 
 set background=dark
 
-
+" }}}
+Plug 'scrooloose/nerdcommenter'
 Plug 'fatih/vim-go'
 Plug 'posva/vim-vue'
 "let g:vue_pre_processors = ['pug', 'scss']
