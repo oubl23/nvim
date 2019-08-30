@@ -20,6 +20,7 @@ set lazyredraw
 set autoread
 set hlsearch
 set showmode
+set shiftwidth=4
 
 map <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 map R :source $MYVIMRC<CR>
