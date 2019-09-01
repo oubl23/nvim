@@ -1,3 +1,9 @@
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 let mapleader = ' '
 
 let s:curdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -30,6 +36,7 @@ set shiftwidth=4
 set noexpandtab
 
 map <LEADER>rc :e ~/.config/nvim/init.vim<CR>
+map <LEADER>pg :e ~/.config/nvim/conf/01-plug.vim<CR>
 map R :source $MYVIMRC<CR>
 
 if exists('+termguicolors')
@@ -38,3 +45,6 @@ if exists('+termguicolors')
 	set termguicolors
 endif
 
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8

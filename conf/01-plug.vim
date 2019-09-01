@@ -1,16 +1,13 @@
 call plug#begin('~/.vim/plugged')
 
 " LanguageClient ============================================================={{{
-Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+let g:lsp_diagnostics_enabled = 0
+
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-let g:lsp_diagnostics_enabled = 0
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-let g:asyncomplete_auto_popup = 1
 
 function! s:check_back_space() abort
 let col = col('.') - 1
@@ -22,10 +19,12 @@ inoremap <silent><expr> <TAB>
 \ <SID>check_back_space() ? "\<TAB>" :
 \ asyncomplete#force_refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+"let g:asyncomplete_auto_popup = 0
 
-" Plug 'autozimu/LanguageClient-neovim', {
+"Plug 'autozimu/LanguageClient-neovim', {
 			"\ 'branch': 'next',
 			"\ 'do': 'bash install.sh',
 			"\ }
@@ -34,12 +33,15 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 "let g:LanguageClient_serverCommands = {
 			"\ 'vue': ['vls'],
 			"\ 'python': ['pyls'],
+			"\ 'go': ['gopls'],
 			"\ }
 
 "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 "nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 "nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"let g:LanguageClient_diagnosticsEnable = 0
+
 "Plug 'ncm2/ncm2'
 "Plug 'roxma/nvim-yarp'
 "autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -47,6 +49,11 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 "Plug 'ncm2/ncm2-bufword'
 "Plug 'ncm2/ncm2-path'
 
+inoremap <c-c> <ESC>
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " }}}
 
