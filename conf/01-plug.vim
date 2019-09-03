@@ -94,9 +94,6 @@ let NERDTreeMapPreview = ""
 let NERDTreeMapCloseDir = "n"
 let NERDTreeMapChangeRoot = "y"
 Plug 'Xuyuanp/nerdtree-git-plugin'
-" ==
-" == NERDTree-git
-" ==
 let g:NERDTreeIndicatorMapCustom = {
 			\ "Modified"  : "✹",
 			\ "Staged"    : "✚",
@@ -306,4 +303,5 @@ autocmd FileType vue syntax sync fromstart
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 
+colorscheme one
 " vim: set fdl=0 fdm=marker:
