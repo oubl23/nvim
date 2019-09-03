@@ -304,4 +304,5 @@ autocmd FileType vue syntax sync fromstart
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 
 colorscheme one
+set background=dark
 " vim: set fdl=0 fdm=marker:
