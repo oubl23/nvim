@@ -312,6 +312,7 @@ autocmd FileType vue syntax sync fromstart
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 
 colorscheme one
+<<<<<<< HEAD
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
@@ -334,4 +335,5 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
+set background=dark
 " vim: set fdl=0 fdm=marker:
