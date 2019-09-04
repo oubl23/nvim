@@ -272,6 +272,15 @@ nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " Code ======================================================================={{{
+"marks
+Plug 'kshenoy/vim-signature'
+"close tag
+"Plug 'Raimondi/delimitMate'
+"Plug 'docunext/closetag.vim'
+"let g:closetag_html_style=1
+Plug 'alvan/vim-closetag'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dense-analysis/ale'
 "备注
 Plug 'scrooloose/nerdcommenter'
@@ -279,7 +288,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'fatih/vim-go'
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
 
 "Plug 'numirias/semshi'
 
@@ -304,4 +312,26 @@ autocmd FileType vue syntax sync fromstart
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.vue'
 
 colorscheme one
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = 'chrome'
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
 " vim: set fdl=0 fdm=marker:

@@ -61,3 +61,7 @@ map <LEADER>r2 :e ~/.config/nvim/conf/02-lsp.vim<CR>
 map <LEADER>r3 :e ~/.config/nvim/conf/03-key.vim<CR>
 map <LEADER>rd :e ~/.config/nvim/_machine_specific.vim<CR>
 map R :source $MYVIMRC<CR>
+
+map P "*p
+nnoremap n nzz
+nnoremap N Nzz
