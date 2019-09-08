@@ -49,9 +49,11 @@ map tmi :+tabmove<CR>
 map t0 :set showtabline=0<CR>
 map t1 :set showtabline=2<CR>
 
-
+" Open Startify
+map <LEADER>st :Startify<CR>
 " Opening a terminal window
 map <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+
 
 
 map <LEADER>rc :e ~/.config/nvim/init.vim<CR>
@@ -62,6 +64,12 @@ map <LEADER>r3 :e ~/.config/nvim/conf/03-key.vim<CR>
 map <LEADER>rd :e ~/.config/nvim/_machine_specific.vim<CR>
 map R :source $MYVIMRC<CR>
 
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 map P "*p
 nnoremap n nzz
 nnoremap N Nzz
+
+map <LEADER>gi :GoImport 

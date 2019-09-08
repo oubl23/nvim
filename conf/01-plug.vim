@@ -1,59 +1,54 @@
 call plug#begin('~/.vim/plugged')
+    Plug 'francoiscabrol/ranger.vim'
+    Plug 'rbgrouleff/bclose.vim'
 
 " LanguageClient ============================================================={{{
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-let g:lsp_diagnostics_enabled = 0
-
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+silent! au BufEnter * silent! unmap if
+"au TextChangedI * GitGutter
+" Installing plugins
+let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-snippets', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore']
+" use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
-let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~ '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-inoremap <silent><expr> <TAB>
-\ pumvisible() ? "\<C-n>" :
-\ <SID>check_back_space() ? "\<TAB>" :
-\ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-"let g:asyncomplete_auto_popup = 0
-
-"Plug 'autozimu/LanguageClient-neovim', {
-			"\ 'branch': 'next',
-			"\ 'do': 'bash install.sh',
-			"\ }
-"set hidden
-
-"let g:LanguageClient_serverCommands = {
-			"\ 'vue': ['vls'],
-			"\ 'python': ['pyls'],
-			"\ 'go': ['gopls'],
-			"\ }
-
-"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-"let g:LanguageClient_diagnosticsEnable = 0
-
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-"set completeopt=noinsert,menuone,noselect
-"Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-path'
-
-inoremap <c-c> <ESC>
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Useful commands
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+
+
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"let g:lsp_diagnostics_enabled = 0
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"function! s:check_back_space() abort
+"let col = col('.') - 1
+"return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction
+
+"inoremap <silent><expr> <TAB>
+"\ pumvisible() ? "\<C-n>" :
+"\ <SID>check_back_space() ? "\<TAB>" :
+"\ asyncomplete#force_refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+"inoremap <c-c> <ESC>
+"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " }}}
 
@@ -78,6 +73,7 @@ command! -bang -nargs=* Rg
 			\   <bang>0)
 
 nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <C-f> :Ag<CR>
 nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>bl :BLines<CR>
 nnoremap <leader>bf :Buffers<CR>
@@ -111,16 +107,15 @@ let g:NERDTreeIndicatorMapCustom = {
 " color ============================================================{{{
 Plug 'liaoishere/vim-one'        " Fix comment color of 'rakr/vim-one'
 let g:one_allow_italics = 1
+Plug 'mhinz/vim-startify'
 
+let g:startify_lists = [
+	  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'files',     'header': ['   MRU']            },
+	  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+	  \ { 'type': 'commands',  'header': ['   Commands']       },
+	  \ ]
 
-"Plug 'flazz/vim-colorschemes'
-"Plug 'joshdick/onedark.vim'
-"Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'colepeters/spacemacs-theme.vim'
-"Plug 'liuchengxu/space-vim-theme'
-"Plug 'fatih/molokai'
-"let g:molokai_original = 1
-"let g:rehash256 = 1
 " }}}
 
 " Status line =============================================================0={{{
@@ -216,13 +211,6 @@ let g:lightline.tab = {
 			\ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
 
 function! ShortPath(n) abort
-	" Partly copied from powerline code:
-	" https://github.com/admc/dotfiles/blob/master/.vim/autoload/Powerline/Functions.vim#L25
-	" Display a short path where the first directory is displayed with its
-	" full name, and the subsequent directories are shortened to their
-	" first letter, i.e. "/home/user/foo/foo/bar/baz.vim" becomes
-	" "~/foo/f/b/baz.vim"
-
 	let buflist = tabpagebuflist(a:n)
 	let winnr = tabpagewinnr(a:n)
 	let filename = expand('#'.buflist[winnr - 1].':t')
@@ -247,8 +235,6 @@ function! ShortPath(n) abort
 	if empty(filepath)
 		return filename
 	endif
-	" This displays the shortest possible path, relative to ~ or the
-	" current directory.
 	let mod = (exists('+acd') && &acd) ? ':~:h' : ':~:.:h'
 	let fpath = split(fnamemodify(filepath, mod), dirsep)
 	let fpath_shortparts = map(fpath[1:], 'v:val[0]')
@@ -271,14 +257,19 @@ let g:gitgutter_highlight_lines = 1
 nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
-" Code ======================================================================={{{
+
+" advance================================================================{{{
+Plug 'tmhedberg/SimpylFold'
+
+Plug 'godlygeek/tabular'
 "marks
 Plug 'kshenoy/vim-signature'
-"close tag
-"Plug 'Raimondi/delimitMate'
-"Plug 'docunext/closetag.vim'
-"let g:closetag_html_style=1
 Plug 'alvan/vim-closetag'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mbbill/undotree'
+"}}}
+
+" Code ======================================================================={{{
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dense-analysis/ale'
@@ -287,7 +278,6 @@ Plug 'scrooloose/nerdcommenter'
 " golang
 Plug 'fatih/vim-go'
 
-Plug 'jiangmiao/auto-pairs'
 
 "Plug 'numirias/semshi'
 
@@ -335,4 +325,3 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 set background=dark
-" vim: set fdl=0 fdm=marker:

@@ -18,7 +18,8 @@ set termencoding=utf-8
 set encoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos
-set autochdir
+set formatoptions-=cro
+"set autochdir
 "autocmd TermOpen term://* startinsert
 set backspace=indent,eol,start
 if exists('+termguicolors')
