@@ -1,6 +1,4 @@
 call plug#begin('~/.vim/plugged')
-    Plug 'francoiscabrol/ranger.vim'
-    Plug 'rbgrouleff/bclose.vim'
 
 " LanguageClient ============================================================={{{
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
